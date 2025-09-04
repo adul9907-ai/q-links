@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="th">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Adul Saa (คิว) — Link Hub</title>
+  <meta name="description" content="ลิงก์เรซูเม่ TikTok Blockdit และ LinkedIn ของคิว พร้อมเบอร์ติดต่อ">
+  <meta name="theme-color" content="#0b0f14">
+  <link rel="icon" href='data:image/svg+xml;utf8,<?xml version="1.0" encoding="UTF-8"?><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><text y="50" font-size="52">🔗</text></svg>'>
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>.blob{filter:blur(64px);opacity:.15}</style>
+</head>
+<body class="min-h-screen bg-[#0b0f14] text-slate-100 flex items-center justify-center p-6 selection:bg-cyan-400/30">
+  <!-- Background -->
+  <div aria-hidden="true" class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute inset-0 bg-[#0b0f14]"></div>
+    <div class="blob absolute -top-24 -left-20 w-80 h-80 rounded-full bg-cyan-500"></div>
+    <div class="blob absolute -bottom-20 -right-24 w-[26rem] h-[26rem] rounded-full bg-indigo-500"></div>
+    <div class="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-cyan-400/40 to-transparent"></div>
+  </div>
+
+  <main class="w-full max-w-3xl grid gap-6">
+    <!-- Header -->
+    <header class="rounded-2xl border border-white/10 bg-white/5 backdrop-blur-xl px-6 py-7 text-center shadow-[0_20px_60px_-20px_rgba(2,6,23,.55),0_2px_10px_rgba(2,6,23,.25)]">
+      <h1 class="text-3xl font-extrabold tracking-tight">
+        <span class="bg-gradient-to-r from-cyan-300 via-blue-200 to-indigo-300 bg-clip-text text-transparent">Adul Saa</span>
+      </h1>
+      <div class="mt-1 text-lg text-slate-300">(คิว)</div>
+      <p class="mt-2 text-sm text-slate-300/90">
+        Customer Service / Marketing @ TCE · Economics (UTCC) · Creator — Seed to Success
+      </p>
+      <p class="mt-2">
+        <a class="inline-flex items-center gap-2 text-sm font-medium text-cyan-300 hover:text-cyan-200 transition" href="tel:0622291418" title="โทรหาคิว">
+          <svg xmlns="http://www.w3.org/2000/svg" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6A19.79 19.79 0 0 1 2.09 4.18 2 2 0 0 1 4.06 2h3a2 2 0 0 1 2 1.72c.12.9.33 1.77.64 2.6a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.48-1.16a2 2 0 0 1 2.11-.45c.83.31 1.7.52 2.6.64A2 2 0 0 1 22 16.92z"/>
+          </svg>
+          062-229-1418
+        </a>
+      </p>
+    </header>
+
+    <!-- Links -->
+    <section class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <!-- Resume -->
+      <a href="https://drive.google.com/file/d/1eFFyYsmMrWgePZn0XI29V5lJDuoyTdUp/view?usp=drivesdk" target="_blank" rel="noopener"
+         class="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-4 shadow-[0_12px_30px_-16px_rgba(14,165,233,.25)] backdrop-blur-xl transition-transform hover:-translate-y-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
+        <span aria-hidden class="pointer-events-none absolute inset-0 rounded-xl opacity-0 ring-1 ring-cyan-300/30 transition-opacity duration-300 group-hover:opacity-100"></span>
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 grid place-items-center rounded-lg border border-white/10 bg-gradient-to-b from-cyan-400/35 to-cyan-400/10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><path d="M14 2v6h6"/><path d="M16 13H8M16 17H8M10 9h.01"/>
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <h3 class="text-base font-semibold truncate">Resume (PDF)</h3>
+            <p class="text-xs text-slate-300/80 truncate">Google Drive — เปิดดูได้เลย</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="ml-auto w-5 h-5 opacity-70 group-hover:opacity-100 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- Blockdit -->
+      <a href="https://www.blockdit.com/pages/67f3ea8c8b22541f0ac0f2c7" target="_blank" rel="noopener"
+         class="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-4 shadow-[0_12px_30px_-16px_rgba(14,165,233,.25)] backdrop-blur-xl transition-transform hover:-translate-y-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
+        <span aria-hidden class="pointer-events-none absolute inset-0 rounded-xl opacity-0 ring-1 ring-cyan-300/30 transition-opacity duration-300 group-hover:opacity-100"></span>
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 grid place-items-center rounded-lg border border-white/10 bg-gradient-to-b from-cyan-400/35 to-cyan-400/10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="2"/><path d="M7 8h10M7 12h10M7 16h6"/>
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <h3 class="text-base font-semibold truncate">Blockdit: The Investor's Story</h3>
+            <p class="text-xs text-slate-300/80 truncate">บทความ/คอนเทนต์ที่เขียนล่าสุด</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="ml-auto w-5 h-5 opacity-70 group-hover:opacity-100 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- TikTok -->
+      <a href="https://www.tiktok.com/@seed2success?_t=ZS-8zRM2gAZq68&_r=1" target="_blank" rel="noopener"
+         class="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-4 shadow-[0_12px_30px_-16px_rgba(14,165,233,.25)] backdrop-blur-xl transition-transform hover:-translate-y-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
+        <span aria-hidden class="pointer-events-none absolute inset-0 rounded-xl opacity-0 ring-1 ring-cyan-300/30 transition-opacity duration-300 group-hover:opacity-100"></span>
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 grid place-items-center rounded-lg border border-white/10 bg-gradient-to-b from-cyan-400/35 to-cyan-400/10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <polygon points="5 3 19 12 5 21 5 3"></polygon>
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <h3 class="text-base font-semibold truncate">TikTok: @seed2success</h3>
+            <p class="text-xs text-slate-300/80 truncate">วิดีโอความรู้การเงิน/เศรษฐกิจ</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="ml-auto w-5 h-5 opacity-70 group-hover:opacity-100 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+          </svg>
+        </div>
+      </a>
+
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/adul-sa-a-1ab1a9351?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=ios_app" target="_blank" rel="noopener"
+         class="group relative overflow-hidden rounded-xl border border-white/10 bg-white/5 p-4 shadow-[0_12px_30px_-16px_rgba(14,165,233,.25)] backdrop-blur-xl transition-transform hover:-translate-y-[2px] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-400/60">
+        <span aria-hidden class="pointer-events-none absolute inset-0 rounded-xl opacity-0 ring-1 ring-cyan-300/30 transition-opacity duration-300 group-hover:opacity-100"></span>
+        <div class="flex items-center gap-4">
+          <div class="w-10 h-10 grid place-items-center rounded-lg border border-white/10 bg-gradient-to-b from-cyan-400/35 to-cyan-400/10">
+            <svg xmlns="http://www.w3.org/2000/svg" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 7h18v10a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V7z"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/>
+            </svg>
+          </div>
+          <div class="min-w-0">
+            <h3 class="text-base font-semibold truncate">LinkedIn Profile</h3>
+            <p class="text-xs text-slate-300/80 truncate">โปรไฟล์สำหรับการทำงาน</p>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" class="ml-auto w-5 h-5 opacity-70 group-hover:opacity-100 transition" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M7 17L17 7"/><path d="M7 7h10v10"/>
+          </svg>
+        </div>
+      </a>
+    </section>
+
+    <footer class="text-center text-xs text-slate-400">
+      © <script>document.write(new Date().getFullYear())</script> Adul Saa (คิว)
+    </footer>
+  </main>
+</body>
+</html>
