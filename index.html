@@ -2,7 +2,7 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 <title>ADUL SAA (คิว) — Link Hub</title>
 <meta name="description" content="ลิงก์เรซูเม่ TikTok Blockdit และ LinkedIn ของคิว พร้อมเบอร์ติดต่อ">
 <meta name="theme-color" content="#0b0f14">
@@ -11,21 +11,12 @@
 <style>
   body { background: #0b0f14; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; }
 
-  /* Background blobs */
   .blob{filter:blur(80px);opacity:.15; position: absolute; animation: float 25s ease-in-out infinite;}
-  @keyframes float {
-    0%,100%{transform: translate(0,0);}
-    50%{transform: translate(50px,-30px);}
-  }
-
-  /* Background subtle flicker */
+  @keyframes float { 0%,100%{transform: translate(0,0);} 50%{transform: translate(50px,-30px);} }
   .flicker { animation: flickerAnimation 3s infinite; }
-  @keyframes flickerAnimation {
-    0%, 100% { opacity: 0.15; }
-    50% { opacity: 0.25; }
-  }
+  @keyframes flickerAnimation { 0%,100% { opacity: 0.15; } 50% { opacity: 0.25; } }
 
-  header h1 { font-size: 2.8rem; font-weight: 800; color: #00FFFF; text-shadow: 0 0 15px #00FFFF, 0 0 30px #00FFFF; text-transform: uppercase; }
+  header h1 { font-size: 2.8rem; font-weight: 800; color: #00FFFF; text-shadow: 0 0 15px #00FFFF, 0 0 30px #00FFFF; }
 
   .link-card {
     background: rgba(15,15,20,0.95); border: 1px solid rgba(0,255,255,0.3);
@@ -38,28 +29,34 @@
     background: linear-gradient(135deg, #00FFFF20, #0080FF20); border: 1px solid rgba(0,255,255,0.4);
   }
 
-  .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #00FFFF; object-fit: cover;
-    box-shadow: 0 0 25px #00FFFF; transition: transform 0.4s ease;
+  .profile-img {
+    width: 150px; max-width: 40vw; height: 150px; border-radius: 50%; border: 3px solid #00FFFF;
+    object-fit: cover; box-shadow: 0 0 25px #00FFFF; transition: transform 0.4s ease; display: block; margin: 0 auto;
   }
   .profile-img:hover { transform: scale(1.05) rotate(3deg); }
+
+  /* Responsive text */
+  @media (max-width: 640px) {
+    header h1 { font-size: 2rem; }
+    .link-card { flex-direction: column; text-align: center; }
+    .link-icon { margin-bottom: 0.5rem; }
+  }
 </style>
 </head>
 <body>
-<!-- Background Blobs with subtle flicker -->
 <div class="blob flicker" style="top:-20%; left:-10%; width:300px; height:300px; background: #00FFFF; animation-duration:30s"></div>
 <div class="blob flicker" style="bottom:-20%; right:-10%; width:400px; height:400px; background: #FF00FF; animation-duration:35s"></div>
 
 <main class="w-full max-w-3xl mx-auto p-6">
-  <header class="text-center mb-8 flex flex-col items-center">
+  <header class="text-center mb-8">
     <img src="https://github.com/adul9907-ai/image/blob/main/Profile.JPG?raw=true" alt="Profile" class="profile-img mb-4">
     <h1>ADUL SAA</h1>
     <div class="text-lg text-slate-300 mt-1">(คิว)</div>
-    <p class="mt-2 text-slate-300/80 text-center">Customer Service / Marketing @ TCE · Economics (UTCC) · Creator — Seed to Success</p>
-    <p class="mt-2"><a href="tel:0622291418" class="text-cyan-300 hover:text-cyan-200 transition">062-229-1418</a></p>
+    <p class="mt-2 text-slate-300/80">Customer Service / Marketing @ TCE · Economics (UTCC) · Creator — Seed to Success</p>
+    <p class="mt-2"><a href="tel:0622291418" class="text-cyan-300 hover:text-cyan-200 transition">062-2291418</a></p>
   </header>
 
   <section class="grid grid-cols-1 sm:grid-cols-2 gap-6">
-
     <!-- Resume PDF -->
     <a href="https://drive.google.com/file/d/1dFtyEUg9b25ugRt-2WkJW_-Do1693ggr/view?usp=sharing" class="link-card">
       <div class="link-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" alt="PDF" class="w-6 h-6"></div>
