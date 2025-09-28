@@ -3,18 +3,30 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
-<title>ADUL SA A — Link Hub</title>
+<title>ADUL SAA (คิว) — Link Hub</title>
 <meta name="description" content="ลิงก์เรซูเม่ TikTok Blockdit และ LinkedIn ของคิว พร้อมเบอร์ติดต่อ">
 <meta name="theme-color" content="#0b0f14">
 <link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><text y="50" font-size="52">🔗</text></svg>'>
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  body { background: #0b0f14; color: #fff; font-family: 'Inter', sans-serif; overflow-x: hidden; margin:0; }
+  html, body { margin:0; padding:0; width:100%; height:100%; overflow-x:hidden; overflow-y:auto; }
+  body { background: #0b0f14; color: #fff; font-family: 'Inter', sans-serif; display:flex; justify-content:center; }
 
+  .container { max-width: 500px; width: 100%; padding: 1rem; }
+
+  /* Background blobs */
   .blob{filter:blur(80px);opacity:.15; position: absolute; animation: float 25s ease-in-out infinite;}
-  @keyframes float { 0%,100%{transform: translate(0,0);} 50%{transform: translate(50px,-30px);} }
+  @keyframes float {
+    0%,100%{transform: translate(0,0);}
+    50%{transform: translate(50px,-30px);}
+  }
+
+  /* Background subtle flicker */
   .flicker { animation: flickerAnimation 3s infinite; }
-  @keyframes flickerAnimation { 0%,100%{opacity:.15;} 50%{opacity:.25;} }
+  @keyframes flickerAnimation {
+    0%, 100% { opacity: 0.15; }
+    50% { opacity: 0.25; }
+  }
 
   header h1 { font-size: 2.8rem; font-weight: 800; color: #00FFFF; text-shadow: 0 0 15px #00FFFF, 0 0 30px #00FFFF; text-transform: uppercase; }
 
@@ -24,69 +36,83 @@
     transition: transform 0.3s ease, box-shadow 0.3s ease;
   }
   .link-card:hover { transform: translateY(-5px); box-shadow: 0 0 25px #00FFFF; }
+
   .link-icon { width: 50px; height: 50px; display: grid; place-items: center; border-radius: 12px;
     background: linear-gradient(135deg, #00FFFF20, #0080FF20); border: 1px solid rgba(0,255,255,0.4);
   }
-  .profile-img { width: 150px; max-width: 80vw; height: auto; aspect-ratio:1/1; border-radius: 50%; border: 3px solid #00FFFF; object-fit: cover;
-    box-shadow: 0 0 25px #00FFFF; transition: transform 0.4s ease; display:block; margin:auto;
+
+  .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #00FFFF; object-fit: cover;
+    box-shadow: 0 0 25px #00FFFF; transition: transform 0.4s ease; display:block; margin:0 auto;
   }
   .profile-img:hover { transform: scale(1.05) rotate(3deg); }
+
+  footer { text-align:center; margin-top:2rem; color:#888; }
 </style>
 </head>
 <body>
+<!-- Background Blobs with subtle flicker -->
 <div class="blob flicker" style="top:-20%; left:-10%; width:300px; height:300px; background: #00FFFF; animation-duration:30s"></div>
 <div class="blob flicker" style="bottom:-20%; right:-10%; width:400px; height:400px; background: #FF00FF; animation-duration:35s"></div>
-<main class="w-full max-w-3xl mx-auto p-6 flex flex-col items-center">
-  <header class="text-center mb-8 w-full">
+
+<div class="container">
+  <header class="text-center mb-8 flex flex-col items-center">
     <img src="https://github.com/adul9907-ai/image/blob/main/Profile.JPG?raw=true" alt="Profile" class="profile-img mb-4">
-    <h1>ADUL SA A</h1>
+    <h1>ADUL SAA</h1>
     <div class="text-lg text-slate-300 mt-1">(คิว)</div>
-    <p class="mt-2 text-slate-300/80">Customer Service / Marketing @ TCE · Economics (UTCC) · Creator — Seed to Success</p>
-    <p class="mt-2"><a href="tel:0622291418" class="text-cyan-300 hover:text-cyan-200 transition">062-2291418</a></p>
+    <p class="mt-2 text-slate-300/80 text-center">Customer Service / Marketing @ TCE · Economics (UTCC) · Creator — Seed to Success</p>
+    <p class="mt-2"><a href="tel:0622291418" class="text-cyan-300 hover:text-cyan-200 transition">062-229-1418</a></p>
   </header>
-  <section class="grid grid-cols-1 sm:grid-cols-2 gap-6 w-full justify-items-center">
+
+  <section class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+
     <!-- Resume PDF -->
-    <a href="https://drive.google.com/file/d/1dFtyEUg9b25ugRt-2WkJW_-Do1693ggr/view?usp=sharing" class="link-card w-full max-w-sm">
+    <a href="https://drive.google.com/file/d/1dFtyEUg9b25ugRt-2WkJW_-Do1693ggr/view?usp=sharing" class="link-card">
       <div class="link-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/8/87/PDF_file_icon.svg" alt="PDF" class="w-6 h-6"></div>
       <div class="ml-4">
         <h3>Resume (PDF)</h3>
         <p class="text-slate-400 text-sm">Google Drive — เปิดดูได้เลย</p>
       </div>
     </a>
+
     <!-- Blockdit -->
-    <a href="https://www.blockdit.com/pages/67f3ea8c8b22541f0ac0f2c7" class="link-card w-full max-w-sm">
+    <a href="https://www.blockdit.com/pages/67f3ea8c8b22541f0ac0f2c7" class="link-card">
       <div class="link-icon">📝</div>
       <div class="ml-4">
         <h3>Blockdit: Seed to Success</h3>
         <p class="text-slate-400 text-sm">บทความ/คอนเทนต์ที่เขียนล่าสุด</p>
       </div>
     </a>
+
     <!-- TikTok -->
-    <a href="https://www.tiktok.com/@seed2success" class="link-card w-full max-w-sm">
+    <a href="https://www.tiktok.com/@seed2success" class="link-card">
       <div class="link-icon"><img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" alt="TikTok" class="w-8 h-8"></div>
       <div class="ml-4">
         <h3>TikTok: @seed2success</h3>
         <p class="text-slate-400 text-sm">วิดีโอความรู้การเงิน/เศรษฐกิจ</p>
       </div>
     </a>
+
     <!-- LinkedIn -->
-    <a href="https://www.linkedin.com/in/adul-sa-a-1ab1a9351" class="link-card w-full max-w-sm">
+    <a href="https://www.linkedin.com/in/adul-sa-a-1ab1a9351" class="link-card">
       <div class="link-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" class="w-6 h-6"></div>
       <div class="ml-4">
         <h3>LinkedIn Profile</h3>
         <p class="text-slate-400 text-sm">โปรไฟล์สำหรับการทำงาน</p>
       </div>
     </a>
+
     <!-- Google Drive Sheet -->
-    <a href="https://drive.google.com/drive/folders/167_pr_S8UscQ5EI6VKG__JfAluhfMjGW?usp=sharing" class="link-card w-full max-w-sm">
+    <a href="https://drive.google.com/drive/folders/167_pr_S8UscQ5EI6VKG__JfAluhfMjGW?usp=sharing" class="link-card">
       <div class="link-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg" alt="Drive Folder" class="w-6 h-6"></div>
       <div class="ml-4">
         <h3>Google Drive sheet</h3>
         <p class="text-slate-400 text-sm">เอกสารเกี่ยว Sheet & Excel</p>
       </div>
     </a>
+
   </section>
-  <footer class="text-center text-slate-500 mt-12">© <script>document.write(new Date().getFullYear())</script> ADUL SA A (คิว)</footer>
-</main>
+
+  <footer>© <script>document.write(new Date().getFullYear())</script> ADUL SAA (คิว)</footer>
+</div>
 </body>
 </html>
