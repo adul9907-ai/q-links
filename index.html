@@ -30,6 +30,7 @@
     min-height: 100%;
     font-family: 'Inter', sans-serif;
     overflow-x: hidden; /* ป้องกัน blob ล้นจอแนวนอน */
+    transition: background-color 0.5s ease, color 0.5s ease;
   }
   
   /* === Keyframes สำหรับอนิเมชั่น "ลูกเล่น" === */
@@ -54,12 +55,17 @@
     position: fixed; /* ยึดตำแหน่งไว้กับ viewport */
     z-index: -1; /* ให้อยู่หลังสุด */
     filter: blur(100px); /* เบลอขอบหนักๆ */
-    opacity: 0.15; /* จางๆ */
+    opacity: 0.15; /* จางๆ - Default for Dark Mode */
     animation: float 20s ease-in-out infinite;
     border-radius: 50%;
   }
 
-  /* === Parallax Effect สำหรับพื้นหลัง === */
+  /* Blob Colors - ใช้ !important เพื่อ override style attribute */
+  .blob.bg-white { background-color: #ffffff !important; }
+  .blob.bg-blue-500 { background-color: #3b82f6 !important; }
+
+
+  /* === Parallax Effect สำหรับพื้นหลัง (Dark Mode Default) === */
   .parallax-bg {
     position: fixed;
     top: 0;
@@ -67,13 +73,14 @@
     width: 100%;
     height: 100%;
     z-index: -2; /* ให้อยู่หลัง blobs อีกที */
-    background-image: linear-gradient(to bottom, #0d0d1a, #0b0b15); /* เพิ่ม gradient subtle */
-    transition: transform 0.1s ease-out; /* ทำให้การเคลื่อนที่นุ่มนวลขึ้น */
+    /* Dark Mode Gradient */
+    background-image: linear-gradient(to bottom, #0d0d1a, #0b0b15); 
+    transition: transform 0.1s ease-out, background-image 0.5s ease; 
   }
 
   /* === เพิ่มลูกเล่นสำหรับชื่อ (Hover Effect) === */
   .animated-title {
-    display: inline-block; /* เพื่อให้ transform ทำงานได้ */
+    display: inline-block; 
     transition: all 0.3s ease;
     text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); 
   }
@@ -83,7 +90,7 @@
     text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); 
   }
 
-  /* === Contact Button Style - สไตล์ Glassmorphism ขนาดเล็ก === */
+  /* === Contact Button Style - สไตล์ Glassmorphism ขนาดเล็ก (Dark Mode Default) === */
   .contact-button {
     background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
     border: 1px solid rgba(255, 255, 255, 0.15);
@@ -103,7 +110,7 @@
     text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
   }
 
-  /* === Key Skill Pill Style (Glassmorphism 2.0) - ปรับให้เข้าชุด === */
+  /* === Key Skill Pill Style (Dark Mode Default) === */
   .skill-pill {
     background: rgba(255, 255, 255, 0.05); /* พื้นหลังจางๆ */
     border: 1px solid rgba(255, 255, 255, 0.1); /* ขอบบางๆ */
@@ -116,11 +123,17 @@
     transform: translateY(-1px);
   }
 
-  /* === Glow Effect สำหรับการ์ด === */
+  /* === Glow Effect สำหรับการ์ด (Dark Mode Default) === */
   .link-card-glow {
     position: relative;
     overflow: hidden; 
     transition: all 0.3s ease; 
+    background: rgba(255, 255, 255, 0.05); /* Base color for glass card */
+    border: 1px solid rgba(255, 255, 255, 0.1);
+  }
+
+  .link-card-glow:hover {
+    background: rgba(255, 255, 255, 0.1);
   }
 
   .link-card-glow::before {
@@ -137,12 +150,108 @@
     z-index: -1; 
   }
 
-  .link-card-glow:hover::before {
-    opacity: 1;
-    transform: rotate(180deg);
+  /* === Light Mode Overrides (Overrides Dark Mode Styles) === */
+  .light-mode {
+      /* Global Background/Text Override - เปลี่ยนเป็น Off-White ที่ลดความสว่างแล้ว */
+      background-color: #F0F0F0 !important; /* New Off-White: #F0F0F0 */
+      color: #1e293b !important; 
+  }
+  
+  /* --- IMPORTANT: TEXT COLOR OVERRIDES FOR HIGH CONTRAST --- */
+  .light-mode .bg-slate-950 { background-color: #F0F0F0 !important; }
+  .light-mode .text-slate-200 { color: #334155 !important; } /* Main Text (Body, Paragraph) */
+  .light-mode .text-white { color: #0f172a !important; } /* Headings/Primary Text (Name, Title) */
+  .light-mode .text-slate-400 { color: #64748b !important; } /* Secondary/Description Text */
+  .light-mode .text-slate-300 { color: #1e293b !important; } /* Skills Header/Bio */
+  .light-mode .text-slate-500 { color: #94a3b8 !important; } /* Footer */
+  .light-mode .shadow-xl { box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -2px rgba(0, 0, 0, 0.05) !important; }
+  /* Animated Title (Name) in Light Mode */
+  .light-mode .animated-title { text-shadow: none; }
+  .light-mode .animated-title:hover { color: #1e293b; transform: scale(1.02) translateY(-2px); text-shadow: 0 0 10px rgba(0, 0, 0, 0.1); }
+
+
+  /* Parallax Background Override - ปรับ Gradient ให้เป็น Off-White */
+  /* ไล่สีจาก #ebebeb (สว่างกว่าเล็กน้อย) ไปยัง #F0F0F0 (สีหลัก) */
+  .light-mode .parallax-bg {
+      background-image: linear-gradient(to bottom, #ebebeb, #F0F0F0) !important; 
   }
 
-  /* === Accent Colors for Icons/Titles on Hover (ลูกเล่นสีเฉพาะ) === */
+  /* --- GLASSMORPHISM OVERRIDES FOR LIGHT MODE --- */
+  
+  /* Contact Button (Pills) */
+  .light-mode .contact-button {
+      /* Light Glass Effect: Very faint white/transparent background with a crisp border */
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.6)) !important;
+      border: 1px solid rgba(0, 0, 0, 0.08) !important;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05) !important;
+      text-shadow: none !important;
+      color: #334155 !important; /* Ensure text color is dark on light button */
+  }
+  .light-mode .contact-button:hover {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.7)) !important;
+      border-color: rgba(0, 0, 0, 0.15) !important;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* Key Skill Pills and Link Cards */
+  .light-mode .skill-pill,
+  .light-mode .link-card-glow {
+      /* Subtle light background */
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0.7)) !important;
+      border: 1px solid rgba(0, 0, 0, 0.1) !important; 
+  }
+  .light-mode .skill-pill:hover,
+  .light-mode .link-card-glow:hover {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.8)) !important;
+      border-color: rgba(0, 0, 0, 0.2) !important;
+  }
+  
+  /* Icon Box Background in Link Cards */
+  .light-mode .link-card-glow > div:first-child { 
+      background: rgba(0, 0, 0, 0.05) !important; /* Darker background for icon box */
+  }
+  .light-mode .link-card-glow:hover > div:first-child { 
+      background: rgba(0, 0, 0, 0.1) !important; /* Slightly darker on hover */
+  }
+
+  /* Card Glow Effect (Radial Gradient) */
+  .light-mode .link-card-glow::before {
+      background: radial-gradient(circle at center, rgba(0, 0, 0, 0.08) 0%, transparent 70%) !important;
+  }
+
+  /* --- ACCENT COLORS OVERRIDES --- */
+  .light-mode .text-green-300 { color: #059669 !important; } 
+  .light-mode .text-blue-300 { color: #2563eb !important; }
+  .light-mode .text-purple-300 { color: #7c3aed !important; }
+  .light-mode .text-yellow-300 { color: #d97706 !important; }
+  
+  /* Icon/Title Hover Colors (Ensuring high contrast) */
+  .light-mode .group-hover\:text-blue-300:hover { color: #2563eb !important; }
+  .light-mode .group-hover\:text-emerald-300:hover { color: #059669 !important; }
+  .light-mode .group-hover\:text-orange-300:hover { color: #ea580c !important; }
+  .light-mode .group-hover\:text-pink-300:hover { color: #dc2626 !important; }
+  
+  .light-mode .resume-title:hover { color: #2563eb !important; } 
+  .light-mode .data-title:hover { color: #059669 !important; } 
+  .light-mode .blockdit-title:hover { color: #ea580c !important; }
+  .light-mode .tiktok-title:hover { color: #dc2626 !important; }
+
+  /* Blobs - change colors for light mode and INCREASE opacity to match style prominence in dark mode */
+  /* Note: Blobs use original colors but are visible on the new Off-White background */
+  .light-mode .blob.bg-white { background-color: #ef4444 !important; opacity: 0.12 !important; } 
+  .light-mode .blob.bg-blue-500 { background-color: #3b82f6 !important; opacity: 0.12 !important; } 
+
+  /* Theme Toggle Button Style in Light Mode */
+  .light-mode #theme-toggle {
+    color: #1e293b !important;
+    background: rgba(0, 0, 0, 0.05) !important;
+    border-color: rgba(0, 0, 0, 0.1) !important;
+  }
+  .light-mode #theme-toggle:hover {
+    background: rgba(0, 0, 0, 0.1) !important;
+  }
+
+  /* === Accent Colors for Icons/Titles on Hover (ลูกเล่นสีเฉพาะ) - No change needed here, as the groups handle color */
   .resume-icon:hover { color: #3b82f6; /* Blue-500 */ }
   .data-icon:hover { color: #10b981; /* Emerald-500 */ }
   .blockdit-icon:hover { color: #f97316; /* Orange-600 (ตามสี Blockdit) */ }
@@ -164,10 +273,32 @@
 
 
 <!-- Blobs (ลูกเล่นพื้นหลัง) -->
+<!-- ให้ใส่ Tailwind classes (bg-white/bg-blue-500) ใน HTML เพื่อให้ JS และ CSS Override ได้อย่างง่าย -->
 <div class="blob w-96 h-96 bg-white" style="top: 10%; left: 10%; animation-duration: 25s;"></div>
 <div class="blob w-80 h-80 bg-blue-500" style="bottom: 10%; right: 10%; animation-duration: 20s;"></div>
 
 <div class="container max-w-xl w-full p-4 sm:p-8 relative z-10">
+  
+  <!-- Theme Toggle Button (Fixed Position) -->
+  <button 
+      id="theme-toggle" 
+      aria-label="Toggle Dark/Light Mode"
+      class="fixed z-50 top-4 right-4 p-3 rounded-full 
+             bg-white/5 backdrop-blur-md border border-white/10 text-white 
+             transition-all duration-300 hover:bg-white/10 shadow-lg 
+             sm:top-8 sm:right-8"
+      onclick="toggleTheme()"
+      style="animation: fadeInSlideUp 0.8s 0.1s ease-out forwards;"
+  >
+      <!-- Moon Icon (Default: Visible in Dark Mode) -->
+      <svg id="moon-icon" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M21.73 14.73a.875.875 0 01-.17-.06 9 9 0 11-12.01-12.01.875.875 0 01-.06-.17c.18-.3.33-.6.5-.89.28-.48.6-.94.95-1.37a.875.875 0 011.23-.11.875.875 0 01.11 1.23c-.23.28-.44.57-.64.88-.17.26-.32.53-.46.8-4.5 3.32-3.8 10.15.58 13.43a.875.875 0 01-.17 1.48.875.875 0 01-.16.03c.18.29.35.58.52.88.29.48.6.94.95 1.37a.875.875 0 011.23.11.875.875 0 01-.11 1.23c-.23-.28-.44-.57-.64-.88-.17-.26-.32-.53-.46-.8a9 9 0 01-1.37-14.71z"/>
+      </svg>
+      <!-- Sun Icon (Default: Hidden) -->
+      <svg id="sun-icon" class="w-6 h-6 hidden" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 2a.875.875 0 01.875.875v1.75a.875.875 0 01-1.75 0V2.875A.875.875 0 0112 2zm6.65 3.72a.875.875 0 011.24 0l1.24 1.24a.875.875 0 01-1.24 1.24l-1.24-1.24a.875.875 0 010-1.24zm-13.3 0a.875.875 0 010 1.24L4.07 6.96a.875.875 0 01-1.24-1.24l1.24-1.24a.875.875 0 011.24 0zM21.125 12a.875.875 0 01-.875.875h-1.75a.875.875 0 010-1.75h1.75a.875.875 0 01.875.875zM4.625 12a.875.875 0 01-.875.875H2a.875.875 0 010-1.75h1.75a.875.875 0 01.875.875zm14.73 4.65a.875.875 0 011.24 1.24l-1.24 1.24a.875.875 0 01-1.24-1.24l1.24-1.24a.875.875 0 010-1.24zM4.07 17.04a.875.875 0 011.24 0l1.24 1.24a.875.875 0 01-1.24 1.24l-1.24-1.24a.875.875 0 010-1.24zM12 18.25a.875.875 0 01.875.875v1.75a.875.875 0 01-1.75 0v-1.75a.875.875 0 01.875-.875zM12 7.75c-2.35 0-4.25 1.9-4.25 4.25S9.65 16.25 12 16.25 16.25 14.35 16.25 12 14.35 7.75 12 7.75zm0 1.75a2.5 2.5 0 100 5 2.5 2.5 0 000-5z"/>
+      </svg>
+  </button>
   
   
 <!-- HEADER SECTION -->
@@ -225,7 +356,7 @@
             class="text-base font-medium transition-colors contact-button group !text-white"
             title="ติดต่อทาง LINE ID: qdull"
         >
-            <svg class="w-5 h-5 inline-block align-middle text-green-400 transition-colors duration-300 group-hover:text-green-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <svg class="w-5 h-5 inline-block align-middle text-green-400 transition-colors duration-300 group-hover:text-green-300" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
                 <path d="M12 0C5.373 0 0 5.373 0 12c0 6.002 4.385 11.006 10.154 11.776.321.057.439-.138.439-.307v-2.071c-4.264.912-5.155-2.05-5.155-2.05-.333-.848-.813-1.071-1.341-1.366-.438-.363-.033-.483.025-.572.31-.082.909.117 1.52.923 1.341 2.27 3.619 1.625 4.619 1.246.126-.983.52-1.625.946-2.007-3.418-.387-7.015-1.709-7.015-7.59 0-1.677.6-3.052 1.58-4.123-.159-.387-.687-1.95.152-4.067 0 0 1.285-.411 4.207 1.579C9.792 4.416 10.87 4.3 12 4.3s2.208.116 3.256.324c2.922-1.99 4.207-1.579 4.207-1.579.839 2.117.311 3.68.152 4.067.98 1.071 1.58 2.446 1.58 4.123 0 5.892-3.604 7.203-7.03 7.579.539.467.973 1.383.973 2.793v4.114c0 .185.118.423.439.307C19.615 23.006 24 18.002 24 12 24 5.373 18.627 0 12 0z"/>
             </svg>
             <span class="ml-2 hidden sm:inline-block align-middle">LINE: qdull</span>
@@ -278,9 +409,9 @@
       rel="noopener noreferrer"
       class="group flex items-center p-5 rounded-2xl shadow-xl 
              opacity-0 link-card-glow
-             bg-white/5 backdrop-blur-lg border border-white/10
+             backdrop-blur-lg border border-white/10
              transition-all duration-300 
-             hover:bg-white/10 hover:-translate-y-1"
+             hover:-translate-y-1"
       style="animation: fadeInSlideUp 0.8s 0.4s ease-out forwards;"
     >
       <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-white/10 grid place-items-center transition-colors duration-300 group-hover:bg-blue-600/30">
@@ -299,9 +430,9 @@
       rel="noopener noreferrer"
       class="group flex items-center p-5 rounded-2xl shadow-xl 
              opacity-0 link-card-glow
-             bg-white/5 backdrop-blur-lg border border-white/10
+             backdrop-blur-lg border border-white/10
              transition-all duration-300 
-             hover:bg-white/10 hover:-translate-y-1"
+             hover:-translate-y-1"
       style="animation: fadeInSlideUp 0.8s 0.5s ease-out forwards;"
     >
       <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-white/10 grid place-items-center transition-colors duration-300 group-hover:bg-emerald-600/30">
@@ -322,9 +453,9 @@
       rel="noopener noreferrer"
       class="group flex items-center p-5 rounded-2xl shadow-xl 
              opacity-0 link-card-glow
-             bg-white/5 backdrop-blur-lg border border-white/10
+             backdrop-blur-lg border border-white/10
              transition-all duration-300 
-             hover:bg-white/10 hover:-translate-y-1"
+             hover:-translate-y-1"
       style="animation: fadeInSlideUp 0.8s 0.6s ease-out forwards;"
     >
       <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-white/10 grid place-items-center transition-colors duration-300 group-hover:bg-orange-600/30">
@@ -342,9 +473,9 @@
       rel="noopener noreferrer"
       class="group flex items-center p-5 rounded-2xl shadow-xl 
              opacity-0 link-card-glow
-             bg-white/5 backdrop-blur-lg border border-white/10
+             backdrop-blur-lg border border-white/10
              transition-all duration-300 
-             hover:bg-white/10 hover:-translate-y-1"
+             hover:-translate-y-1"
       style="animation: fadeInSlideUp 0.8s 0.7s ease-out forwards;"
     >
       <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-white/10 grid place-items-center transition-colors duration-300 group-hover:bg-pink-600/30">
@@ -378,8 +509,68 @@
     parallaxBg.style.transform = `translateY(${scrollY * 0.1}px)`; 
   });
 
-  // === JavaScript สำหรับแสดงปีปัจจุบันอย่างปลอดภัย ===
+  // === JavaScript สำหรับ Theme Toggle ===
+  function applyTheme(theme) {
+      const body = document.body;
+      const isDarkMode = theme === 'dark';
+      const toggleButton = document.getElementById('theme-toggle');
+      const moonIcon = document.getElementById('moon-icon');
+      const sunIcon = document.getElementById('sun-icon');
+      
+      // 1. Toggle class on body
+      if (!isDarkMode) {
+          body.classList.add('light-mode');
+          // เปลี่ยน meta theme color เป็น Off-White หลัก
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#F0F0F0');
+      } else {
+          body.classList.remove('light-mode');
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#1e293b');
+      }
+
+      // 2. Update button icon and style
+      if (moonIcon && sunIcon && toggleButton) {
+          if (isDarkMode) {
+              moonIcon.classList.remove('hidden');
+              sunIcon.classList.add('hidden');
+              // Dark Mode Button Style (ใช้ Tailwind classes)
+              toggleButton.classList.add('text-white', 'bg-white/5', 'border-white/10');
+              toggleButton.classList.remove('text-slate-900', 'bg-black/5', 'border-black/10');
+          } else {
+              moonIcon.classList.add('hidden');
+              sunIcon.classList.remove('hidden');
+              // Light Mode Button Style (ใช้ Tailwind classes)
+              toggleButton.classList.remove('text-white', 'bg-white/5', 'border-white/10');
+              // Note: Light mode style is primarily handled by the dedicated CSS override block
+              // but we ensure the base classes are removed.
+          }
+      }
+      
+      // 3. Set theme for persistence
+      localStorage.setItem('theme', theme);
+  }
+
+  function toggleTheme() {
+      const currentTheme = localStorage.getItem('theme') || (document.body.classList.contains('light-mode') ? 'light' : 'dark');
+      const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+      applyTheme(newTheme);
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
+      // 1. Initial Theme Load
+      const savedTheme = localStorage.getItem('theme');
+      // Check for saved theme, otherwise check system preference, default to dark
+      let initialTheme = 'dark';
+      if (savedTheme) {
+        initialTheme = savedTheme;
+      } else if (window.matchMedia('(prefers-color-scheme: light)').matches) {
+        initialTheme = 'light';
+      }
+      
+      applyTheme(initialTheme);
+
+      // 2. Add Listener to Toggle Button is now done via onclick attribute in HTML
+      
+      // 3. Current Year
       const yearSpan = document.getElementById('current-year');
       if (yearSpan) {
           yearSpan.textContent = new Date().getFullYear();
