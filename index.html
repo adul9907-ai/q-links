@@ -2,108 +2,336 @@
 <html lang="th">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>ADUL SA A (คิว) — Link Hub</title>
 <meta name="description" content="ลิงก์เรซูเม่ TikTok Blockdit และ LinkedIn ของคิว พร้อมเบอร์ติดต่อ">
-<meta name="theme-color" content="#0b0f14">
+<meta name="theme-color" content="#1e293b">
 <link rel="icon" href='data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64"><text y="50" font-size="52">🔗</text></svg>'>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
 <script src="https://cdn.tailwindcss.com"></script>
 <style>
-  html, body { margin:0; padding:0; width:100%; height:100%; overflow-x:hidden; overflow-y:auto; }
-  body { background: #0b0f14; color: #fff; font-family: 'Inter', sans-serif; display:flex; justify-content:center; }
+  /* ใช้ Inter เป็นฟอนต์หลัก */
+  html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow-x: hidden; /* ป้องกัน blob ล้นจอแนวนอน */
+    font-family: 'Inter', sans-serif;
+  }
 
-  .container { max-width: 500px; width: 100%; padding: 1rem; }
+  body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    min-height: 100%;
+    font-family: 'Inter', sans-serif;
+    overflow-x: hidden; /* ป้องกัน blob ล้นจอแนวนอน */
+    /* overflow-y: hidden; ชั่วคราว ถ้า parallax ไม่ทำงาน */
+  }
+  
+  /* === Keyframes สำหรับอนิเมชั่น "ลูกเล่น" === */
+  @keyframes fadeInSlideUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
 
-  /* Background blobs */
-  .blob{filter:blur(80px);opacity:.15; position: absolute; animation: float 25s ease-in-out infinite;}
+  /* === Keyframes สำหรับ Blob เคลื่อนไหว === */
   @keyframes float {
-    0%,100%{transform: translate(0,0);}
-    50%{transform: translate(50px,-30px);}
+    0%, 100% { transform: translate(0, 0); }
+    50% { transform: translate(30px, -40px); }
   }
 
-  /* Background subtle flicker */
-  .flicker { animation: flickerAnimation 3s infinite; }
-  @keyframes flickerAnimation {
-    0%, 100% { opacity: 0.15; }
-    50% { opacity: 0.25; }
+  .blob {
+    position: fixed; /* ยึดตำแหน่งไว้กับ viewport */
+    z-index: -1; /* ให้อยู่หลังสุด */
+    filter: blur(100px); /* เบลอขอบหนักๆ */
+    opacity: 0.15; /* จางๆ */
+    animation: float 20s ease-in-out infinite;
+    border-radius: 50%;
   }
 
-  header h1 { font-size: 2.8rem; font-weight: 800; color: #00FFFF; text-shadow: 0 0 15px #00FFFF, 0 0 30px #00FFFF; text-transform: uppercase; }
-
-  .link-card {
-    background: rgba(15,15,20,0.95); border: 1px solid rgba(0,255,255,0.3);
-    border-radius: 16px; backdrop-filter: blur(15px); padding: 1rem; display: flex; align-items: center;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* === Parallax Effect สำหรับพื้นหลัง === */
+  /* เราจะใช้ JavaScript ในการควบคุมการเคลื่อนที่เมื่อ Scroll */
+  /* ใน CSS เราจะเตรียมแค่ตำแหน่งเริ่มต้นไว้ */
+  .parallax-bg {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -2; /* ให้อยู่หลัง blobs อีกที */
+    background-image: linear-gradient(to bottom, #0d0d1a, #0b0b15); /* เพิ่ม gradient subtle */
+    transition: transform 0.1s ease-out; /* ทำให้การเคลื่อนที่นุ่มนวลขึ้น */
   }
-  .link-card:hover { transform: translateY(-5px); box-shadow: 0 0 25px #00FFFF; }
 
-  .link-icon { width: 50px; height: 50px; display: grid; place-items: center; border-radius: 12px;
-    background: linear-gradient(135deg, #00FFFF20, #0080FF20); border: 1px solid rgba(0,255,255,0.4);
+  /* === เพิ่มลูกเล่นสำหรับชื่อ (Hover Effect) === */
+  .animated-title {
+    display: inline-block; /* เพื่อให้ transform ทำงานได้ */
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.2); /* เพิ่มเงาเริ่มต้น */
+  }
+  .animated-title:hover {
+    color: #e2e8f0; /* สีสว่างขึ้น */
+    transform: scale(1.02) translateY(-2px); /* ขยับและขยายเล็กน้อย */
+    text-shadow: 0 0 15px rgba(255, 255, 255, 0.5); /* เงาสว่างขึ้น */
   }
 
-  .profile-img { width: 150px; height: 150px; border-radius: 50%; border: 3px solid #00FFFF; object-fit: cover;
-    box-shadow: 0 0 25px #00FFFF; transition: transform 0.4s ease; display:block; margin:0 auto;
+  /* === เพิ่มลูกเล่นสำหรับเบอร์โทรศัพท์ (Button Effect) === */
+  .phone-button {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.03));
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    padding: 0.75rem 1.5rem; /* เพิ่ม padding */
+    border-radius: 9999px; /* ทำให้เป็นรูปแคปซูล */
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.1);
   }
-  .profile-img:hover { transform: scale(1.05) rotate(3deg); }
+  .phone-button:hover {
+    background: linear-gradient(145deg, rgba(255, 255, 255, 0.15), rgba(255, 255, 255, 0.05));
+    border-color: rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.3);
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+  }
 
-  footer { text-align:center; margin-top:2rem; color:#888; }
+  /* === Glow Effect สำหรับการ์ด (ใหม่!) === */
+  .link-card-glow {
+    position: relative;
+    overflow: hidden; /* ซ่อนส่วนเกินของ pseudo-element */
+    transition: all 0.3s ease; /* ทำให้ hover smooth ขึ้น */
+  }
+
+  .link-card-glow::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -50%;
+    width: 200%;
+    height: 200%;
+    background: radial-gradient(circle at center, rgba(255, 255, 255, 0.08) 0%, transparent 70%);
+    transform: rotate(0deg);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.8s ease;
+    z-index: -1; /* ให้ glow อยู่ใต้เนื้อหาการ์ด */
+  }
+
+  .link-card-glow:hover::before {
+    opacity: 1;
+    transform: rotate(180deg); /* หมุนเมื่อ hover */
+  }
+
+  .link-card-glow .link-icon {
+    position: relative;
+    z-index: 1; /* ทำให้ไอคอนอยู่หน้า glow */
+  }
+
 </style>
 </head>
-<body>
-<!-- Background Blobs with subtle flicker -->
-<div class="blob flicker" style="top:-20%; left:-10%; width:300px; height:300px; background: #00FFFF; animation-duration:30s"></div>
-<div class="blob flicker" style="bottom:-20%; right:-10%; width:400px; height:400px; background: #FF00FF; animation-duration:35s"></div>
 
-<div class="container">
-  <header class="text-center mb-8 flex flex-col items-center">
-    <img src="https://github.com/adul9907-ai/image/blob/main/Profile.JPG?raw=true" alt="Profile" class="profile-img mb-4">
-    <h1>ADUL SAA</h1>
-    <div class="text-lg text-slate-300 mt-1">(คิว)</div>
-    <p class="mt-2 text-slate-300/80 text-center">Customer Service / Marketing @ TCE · Economics (UTCC) · Creator — Seed to Success</p>
-    <p class="mt-2"><a href="tel:0622291418" class="text-cyan-300 hover:text-cyan-200 transition">062-229-1418</a></p>
+<body class="text-slate-200 antialiased flex justify-center min-h-screen bg-slate-950">
+
+
+<div class="parallax-bg"></div>
+
+
+<div class="blob w-96 h-96 bg-white" style="top: 10%; left: 10%; animation-duration: 25s;"></div>
+<div class="blob w-80 h-80 bg-blue-500" style="bottom: 10%; right: 10%; animation-duration: 20s;"></div>
+
+<div class="container max-w-xl w-full p-4 sm:p-8 relative z-10">
+  
+  
+
+<header 
+    class="text-center mb-10 flex flex-col items-center opacity-0"
+    style="animation: fadeInSlideUp 0.8s 0.1s ease-out forwards;"
+  >
+    
+    
+
+<img 
+      src="https://github.com/adul9907-ai/image/blob/main/Profile.JPG?raw=true" 
+      alt="Profile" 
+      class="w-32 h-32 sm:w-36 sm:h-36 rounded-full object-cover shadow-xl 
+             transition-all duration-300 hover:scale-105 hover:shadow-2xl hover:shadow-white/10"
+      onerror="this.onerror=null; this.src='https://placehold.co/150x150/1e293b/e2e8f0?text=ADUL';"
+    >
+    
+    
+
+<h1 class="text-4xl sm:text-5xl font-bold text-white mt-6 animated-title">
+      Adul Saa
+    </h1>
+    <div class="text-2xl text-slate-400 mt-1">(คิว)</div>
+    
+    
+
+<p class="mt-4 text-base text-slate-300 max-w-md">
+      Business Development & Customer Service · Economics (UTCC) · Creator — Seed to Success
+    </p>
+    
+    
+
+<p class="mt-4">
+      <a 
+        href="tel:0622291418" 
+        class="text-lg text-white font-medium transition-colors phone-button"
+      >
+        +66 62-229-1418
+      </a>
+    </p>
   </header>
 
-  <section class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+  
 
-    <!-- Blockdit -->
-    <a href="https://www.blockdit.com/pages/67f3ea8c8b22541f0ac0f2c7" class="link-card">
-      <div class="link-icon">📝</div>
+<section class="grid grid-cols-1 sm:grid-cols-2 gap-5 sm:gap-6">
+
+    <!-- 1. Resume Link (Priority 1) -->
+    <a 
+      href="https://drive.google.com/drive/folders/1hJ9Fd7XiSWkp4pEP1lU7f9DIXgua_NdJ?usp=drive_link" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="group flex items-center p-5 rounded-2xl shadow-xl 
+             opacity-0 link-card-glow
+             bg-white/5 backdrop-blur-lg border border-white/10
+             transition-all duration-300 
+             hover:bg-white/10 hover:-translate-y-1"
+      style="animation: fadeInSlideUp 0.8s 0.3s ease-out forwards;"
+    >
+      <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-white/10 grid place-items-center transition-colors duration-300 group-hover:bg-white/20">
+        <!-- SVG Icon for Resume/Document - ไอคอนเอกสาร -->
+        <svg class="w-6 h-6 text-slate-200" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M14 2H6c-1.1 0-2 .9-2 2v16c0 1.1.9 2 2 2h12c1.1 0 2-.9 2-2V8l-6-6zm-1 9H9v2h4v-2zm-1 6H9v2h2v-2zm-3-3H9v2h-1v-2zm5-1v-3H7V4h7v4h4v12H6V4h4v6z"/></svg>
+      </div>
       <div class="ml-4">
-        <h3>Blockdit: Seed to Success</h3>
+        <h3 class="text-lg font-semibold text-white">Resume / CV</h3>
+        <p class="text-slate-400 text-sm">ดาวน์โหลดประวัติส่วนตัว/ผลงาน</p>
+      </div>
+    </a>
+
+    <!-- 2. Excel / Sheet Dashboard (Priority 2, Renamed) -->
+    <a 
+      href="https://drive.google.com/drive/folders/167_pr_S8UscQ5EI6VKG__JfAluhfMjGW?usp=sharing" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="group flex items-center p-5 rounded-2xl shadow-xl 
+             opacity-0 link-card-glow
+             bg-white/5 backdrop-blur-lg border border-white/10
+             transition-all duration-300 
+             hover:bg-white/10 hover:-translate-y-1"
+      style="animation: fadeInSlideUp 0.8s 0.4s ease-out forwards;"
+    >
+      <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-white/10 grid place-items-center transition-colors duration-300 group-hover:bg-white/20">
+        <!-- Drive folder/sheet Icon -->
+        <svg class="w-6 h-6 text-slate-200" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M19.115 13.499l4.33-7.5c.32-.55.15-1.26-.4-1.58l-8.001-4.62c-.55-.32-1.26-.15-1.58.4l-4.33 7.5c-.32.55-.15 1.26.4 1.58l8.001 4.62c.55.32 1.26.15 1.58-.4zM8.57 3.8l-4.33 7.5 4.33 7.5 8.001 4.62 4.33-7.5-4.33-7.5L8.57 3.8z"></path>
+        </svg>
+      </div>
+      <div class="ml-4">
+        <h3 class="text-lg font-semibold text-white">Excel / Sheet Dashboard</h3>
+        <p class="text-slate-400 text-sm">รวมงานด้าน Excel และ Google Sheet</p>
+      </div>
+    </a>
+
+    <!-- 3. Blockdit (Priority 3, delay adjusted) -->
+    <a 
+      href="https://www.blockdit.com/pages/67f3ea8c8b22541f0ac0f2c7" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="group flex items-center p-5 rounded-2xl shadow-xl 
+             opacity-0 link-card-glow
+             bg-white/5 backdrop-blur-lg border border-white/10
+             transition-all duration-300 
+             hover:bg-white/10 hover:-translate-y-1"
+      style="animation: fadeInSlideUp 0.8s 0.5s ease-out forwards;"
+    >
+      <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-white/10 grid place-items-center transition-colors duration-300 group-hover:bg-white/20">
+        <span class="text-2xl" role="img" aria-label="Memo">📝</span>
+      </div>
+      <div class="ml-4">
+        <h3 class="text-lg font-semibold text-white">Blockdit: Seed to Success</h3>
         <p class="text-slate-400 text-sm">บทความ/คอนเทนต์ที่เขียนล่าสุด</p>
       </div>
     </a>
 
-    <!-- TikTok -->
-    <a href="https://www.tiktok.com/@seed2success" class="link-card">
-      <div class="link-icon"><img src="https://upload.wikimedia.org/wikipedia/en/a/a9/TikTok_logo.svg" alt="TikTok" class="w-8 h-8"></div>
+    <!-- 4. TikTok (Priority 4, delay adjusted) -->
+    <a 
+      href="https://www.tiktok.com/@seed2success" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="group flex items-center p-5 rounded-2xl shadow-xl 
+             opacity-0 link-card-glow
+             bg-white/5 backdrop-blur-lg border border-white/10
+             transition-all duration-300 
+             hover:bg-white/10 hover:-translate-y-1"
+      style="animation: fadeInSlideUp 0.8s 0.6s ease-out forwards;"
+    >
+      <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-white/10 grid place-items-center transition-colors duration-300 group-hover:bg-white/20">
+        <!-- TikTok Icon -->
+        <svg class="w-6 h-6 text-slate-200" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M12.53.02C13.84 0 15.14.01 16.44 0c.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-2.43.05-4.84-1.1-6.47-3.02-1.6-1.9-2.2-4.29-1.89-6.62.36-2.61 2.11-4.8 4.3-6.28 2.2-1.48 4.79-1.9 7.11-1.32v4.02c-1.88-.08-3.75.56-5.02 1.9-1.28 1.34-1.93 3.1-1.93 4.8 0 1.57.5 3.12 1.45 4.35.95 1.23 2.27 1.95 3.73 1.98 1.46.02 2.87-.66 3.86-1.73.99-1.07 1.5-2.48 1.5-3.96.01-2.91-.01-5.82.02-8.73-.01-1.39-.49-2.76-1.3-3.8-1.1-1.37-2.7-2.09-4.32-2.1v-4.0c1.47.03 2.93.3 4.23.95.57.28 1.1.63 1.62 1.01.05-1.06.01-2.13.01-3.19z"></path>
+        </svg>
+      </div>
       <div class="ml-4">
-        <h3>TikTok: @seed2success</h3>
+        <h3 class="text-lg font-semibold text-white">TikTok: @seed2success</h3>
         <p class="text-slate-400 text-sm">วิดีโอความรู้การเงิน/เศรษฐกิจ</p>
       </div>
     </a>
-
-    <!-- LinkedIn -->
-    <a href="https://www.linkedin.com/in/adul-sa-a-1ab1a9351" class="link-card">
-      <div class="link-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/c/ca/LinkedIn_logo_initials.png" alt="LinkedIn" class="w-6 h-6"></div>
+    
+    <!-- 5. LinkedIn (Priority 5, delay adjusted) -->
+    <a 
+      href="https://www.linkedin.com/in/adul-sa-a-1ab1a9351" 
+      target="_blank" 
+      rel="noopener noreferrer"
+      class="group flex items-center p-5 rounded-2xl shadow-xl 
+             opacity-0 link-card-glow
+             bg-white/5 backdrop-blur-lg border border-white/10
+             transition-all duration-300 
+             hover:bg-white/10 hover:-translate-y-1"
+      style="animation: fadeInSlideUp 0.8s 0.7s ease-out forwards;"
+    >
+      <div class="flex-shrink-0 w-12 h-12 rounded-xl bg-white/10 grid place-items-center transition-colors duration-300 group-hover:bg-white/20">
+        <!-- LinkedIn Icon -->
+        <svg class="w-6 h-6 text-slate-200" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+          <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.784-1.75-1.75s.784-1.75 1.75-1.75 1.75.784 1.75 1.75-.784 1.75-1.75 1.75zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"></path>
+        </svg>
+      </div>
       <div class="ml-4">
-        <h3>LinkedIn Profile</h3>
+        <h3 class="text-lg font-semibold text-white">LinkedIn Profile</h3>
         <p class="text-slate-400 text-sm">โปรไฟล์สำหรับการทำงาน</p>
       </div>
     </a>
-
-    <!-- Google Drive Sheet -->
-    <a href="https://drive.google.com/drive/folders/167_pr_S8UscQ5EI6VKG__JfAluhfMjGW?usp=sharing" class="link-card">
-      <div class="link-icon"><img src="https://upload.wikimedia.org/wikipedia/commons/1/12/Google_Drive_icon_%282020%29.svg" alt="Drive Folder" class="w-6 h-6"></div>
-      <div class="ml-4">
-        <h3>Google Drive sheet</h3>
-        <p class="text-slate-400 text-sm">เอกสารเกี่ยว Sheet & Excel</p>
-      </div>
-    </a>
+    
 
   </section>
 
-  <footer>© <script>document.write(new Date().getFullYear())</script> ADUL SAA (คิว)</footer>
+  
+
+<footer class="text-center mt-10 mb-6 text-slate-500 text-sm">
+    © <script>document.write(new Date().getFullYear())</script> ADUL SAA (คิว)
+  </footer>
+  
 </div>
+
+<script>
+  // === JavaScript สำหรับ Parallax Effect (พื้นหลัง) ===
+  const parallaxBg = document.querySelector('.parallax-bg');
+  window.addEventListener('scroll', () => {
+    const scrollY = window.scrollY;
+    // ปรับค่า 0.2 เพื่อควบคุมความเร็วของ parallax
+    // ค่าที่น้อยลง = เคลื่อนที่ช้าลง
+    parallaxBg.style.transform = `translateY(${scrollY * 0.1}px)`; 
+  });
+</script>
+
 </body>
 </html>
